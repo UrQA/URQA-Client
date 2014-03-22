@@ -24,10 +24,13 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler{
 		SendErrorProcess errprocess = new SendErrorProcess(report, "client/send/exception");
 		errprocess.start();
 		
-		m_DefaultExceptionHandler.uncaughtException(thread, ex);
+        /**
+         * Android App 강제 종료 문제
+         */
+        //		m_DefaultExceptionHandler.uncaughtException(thread, ex);
 		
-		android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(0);
+        //		android.os.Process.killProcess(android.os.Process.myPid());
+        //        System.exit(0);
     }
 
 	@Override
