@@ -31,6 +31,10 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler{
 		
         //		android.os.Process.killProcess(android.os.Process.myPid());
         //        System.exit(0);
+        
+        
+        // MainThread 에서 Error 발생시 종료 함.
+        exitMainThreadApplication(thread, ex);
     }
 
 	@Override
@@ -38,5 +42,13 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler{
 		// TODO Auto-generated method stub
 		super.finalize();
 	}
+    
+    private void exitMainThreadApplication(Thread thread, Throwable throwable) {
+        if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
+            mUncaughtExceptionHandler.uncaughtException(thread, throwable);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(10);
+        }
+    }
 
 }
