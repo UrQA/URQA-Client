@@ -3,7 +3,7 @@ package com.urqa.library;
 /**
  * @author seunoh on 2014. 03. 23..
  */
-public class UrQASetting {
+public class UrQAOption {
 
     private boolean mToggleLogCat;
     private int mLogLine;

@@ -25,7 +25,7 @@ public final class UrQA {
             throw new IllegalArgumentException("ApiKey must not be empty: " + apiKey);
 
         if (!UrQAHelper.getInstance().isTwice()) {
-            UrQAHelper.init(context, new UrQASetting());
+            UrQAHelper.init(context, new UrQAOption());
             UrQAExceptionHandler.createInstance();
             EventPathManager.getInstance().clear();
             start(context, apiKey);

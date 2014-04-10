@@ -23,9 +23,9 @@ public final class UrQAHelper extends HashMap<UrQAHelper.Keys, String> {
     private static Context sContext;
     private boolean mTwice;
 
-    static void init(Context context, UrQASetting setting) {
+    static void init(Context context, UrQAOption option) {
         UrQAHelper.sContext = context;
-        UrQAHelper.setSetting(setting);
+        UrQAHelper.setOption(option);
         getInstance().mTwice = true;
     }
 
@@ -64,11 +64,11 @@ public final class UrQAHelper extends HashMap<UrQAHelper.Keys, String> {
 
     }
 
-    public static final void setSetting(UrQASetting setting) {
-        getInstance().put(Keys.LOG_FILTER, setting.getLogFilter());
-        getInstance().put(Keys.LOG_LINE, String.valueOf(setting.getLogLine()));
-        getInstance().put(Keys.LOG_TRANSFER, String.valueOf(setting.isTransferLog()));
-        getInstance().put(Keys.LOG_TOGGLE, String.valueOf(setting.isToggleLogCat()));
+    public static final void setOption(UrQAOption option) {
+        getInstance().put(Keys.LOG_FILTER, option.getLogFilter());
+        getInstance().put(Keys.LOG_LINE, String.valueOf(option.getLogLine()));
+        getInstance().put(Keys.LOG_TRANSFER, String.valueOf(option.isTransferLog()));
+        getInstance().put(Keys.LOG_TOGGLE, String.valueOf(option.isToggleLogCat()));
     }
 
     public enum Keys {
