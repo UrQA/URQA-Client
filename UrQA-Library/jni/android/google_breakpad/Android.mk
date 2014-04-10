@@ -84,8 +84,8 @@ LOCAL_SRC_FILES := \
     header/client/linux/minidump_writer/minidump_writer.cc \
     header/client/minidump_file_writer.cc \
     header/common/android/breakpad_getcontext.S \
-    header/common/convert_UTF.c \
     header/common/md5.cc header/common/string_conversion.cc \
+    header/common/convert_UTF.c \
     header/common/linux/elfutils.cc \
     header/common/linux/file_id.cc \
     header/common/linux/guid_creator.cc \
