@@ -1,19 +1,61 @@
 package com.urqa.Collector;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 
 import com.urqa.common.StateData;
 
-import android.content.Context;
-import android.util.Log;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class LogCollector {
-	
+
+
+	private static String hasReadLogsPermission = null;
+
+	private static boolean hasPermission(String permission, Context context) {
+
+		final PackageManager pm = context.getPackageManager();
+		if (pm == null) {
+			return false;
+		}
+
+		try {
+			return pm.checkPermission(permission, context.getPackageName()) == PackageManager.PERMISSION_GRANTED;
+		} catch (RuntimeException e) {
+			return false;
+		}
+	}
+
+	private static int getAPILevel() {
+		int apiLevel;
+		try {
+			final Field SDK_INT = Build.VERSION.class.getField("SDK_INT");
+			apiLevel = SDK_INT.getInt(null);
+		} catch (Exception e) {
+			apiLevel = Integer.parseInt(Build.VERSION.SDK);
+		}
+
+		return apiLevel;
+	}
+
+
+
 	public final static String getLog(Context context) {
-	    StringBuilder LOGCAT_CMD = new StringBuilder();
+
+		if(LogCollector.hasReadLogsPermission == null){
+			LogCollector.hasReadLogsPermission = (hasPermission(Manifest.permission.READ_LOGS, context) || (getAPILevel() >= 16))? "TRUE" : "FALSE";
+		}
+
+		if(LogCollector.hasReadLogsPermission.equals("FALSE"))
+			return "";
+
+		StringBuilder LOGCAT_CMD = new StringBuilder();
 	    LOGCAT_CMD.append("logcat").append(" -d").append(" -v").append(" time").append(" tags").append(" *:V");
 	    //.append(StateData.LogFilter);
 	    
